@@ -2,181 +2,29 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8">
-  <title>Strømpris nå</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Spotpris og slagord</title>
   <style>
-    #forslag {
-      border: 1px solid #ccc;
-      max-height: 200px;
-      overflow-y: auto;
-      position: absolute;
-      background: #fff;
-      width: 250px;
-      z-index: 1000;
-    }
-    #forslag div {
-      padding: 6px;
-      cursor: pointer;
-    }
-    #forslag div.highlight {
-      background: #eaf2f8;
-    }
-    table {
-      border-collapse: collapse;
-      margin-top: 20px;
-      width: 100%;
-      max-width: 600px;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 6px;
-      text-align: center;
-    }
-    th {
-      background: #f2f2f2;
-    }
-    .cheap {
-      background: #d4efdf;
-    }
-    .expensive {
-      background: #f5b7b1;
-    }
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    label { display: block; margin-bottom: 0.5rem; }
+    input, select { padding: 0.5rem; margin-bottom: 1rem; width: 250px; }
+    #resultat { margin-top: 1rem; padding: 1rem; border: 1px solid #ccc; }
+    .highlight { font-weight: bold; color: darkgreen; }
   </style>
 </head>
 <body>
-  <h1>⚡ Strømpris nå</h1>
+  <h1>Kommuneslagord og sone</h1>
 
-  <label for="kommuneInput">Skriv kommune:</label>
-  <input type="text" id="kommuneInput" autocomplete="off">
-  <div id="forslag"></div>
+  <label for="kommuneInput">Velg kommune:</label>
+  <input list="kommuner" id="kommuneInput" placeholder="Skriv kommune...">
+  <datalist id="kommuner"></datalist>
 
-  <div id="pris">Ingen kommune valgt.</div>
-  <div id="tabell"></div>
+  <button id="visInfoBtn">Vis info</button>
 
-  <script>
-    let kommuner = {};
-    let forslagBox = document.getElementById("forslag");
-    let input = document.getElementById("kommuneInput");
-    let highlightIndex = -1;
+  <div id="resultat">
+    <p>Sone: <span id="soneDisplay" class="highlight"></span></p>
+    <p>Slagord: <span id="slagordDisplay" class="highlight"></span></p>
+  </div>
 
-    async function lastKommuner() {
-      const res = await fetch("kommuner_soner_slagord.json");
-      kommuner = await res.json();
-
-      input.addEventListener("input", oppdaterForslag);
-      input.addEventListener("keydown", navigerForslag);
-    }
-
-    function oppdaterForslag() {
-      const query = input.value.toLowerCase();
-      forslagBox.innerHTML = "";
-      highlightIndex = -1;
-
-      if (query.length === 0) return;
-
-      const treff = Object.keys(kommuner).filter(navn =>
-        navn.toLowerCase().includes(query)
-      );
-
-      treff.forEach((navn, idx) => {
-        const div = document.createElement("div");
-        div.textContent = navn;
-        div.addEventListener("click", () => velgKommune(navn));
-        forslagBox.appendChild(div);
-      });
-    }
-
-    function navigerForslag(e) {
-      const items = forslagBox.querySelectorAll("div");
-      if (items.length === 0) return;
-
-      if (e.key === "ArrowDown") {
-        highlightIndex = (highlightIndex + 1) % items.length;
-        oppdaterHighlight(items);
-        e.preventDefault();
-      } else if (e.key === "ArrowUp") {
-        highlightIndex = (highlightIndex - 1 + items.length) % items.length;
-        oppdaterHighlight(items);
-        e.preventDefault();
-      } else if (e.key === "Enter") {
-        if (highlightIndex >= 0) {
-          velgKommune(items[highlightIndex].textContent);
-          e.preventDefault();
-        }
-      }
-    }
-
-    function oppdaterHighlight(items) {
-      items.forEach((item, idx) => {
-        item.classList.toggle("highlight", idx === highlightIndex);
-      });
-    }
-
-    function velgKommune(navn) {
-      input.value = navn;
-      forslagBox.innerHTML = "";
-      hentPris(kommuner[navn], navn);
-    }
-
-    async function hentPris(info, kommunenavn) {
-      const idag = new Date();
-      const year = idag.getFullYear();
-      const month = String(idag.getMonth() + 1).padStart(2, "0");
-      const day = String(idag.getDate()).padStart(2, "0");
-      const dato = `${year}/${month}-${day}`;
-      const url = `https://www.hvakosterstrommen.no/api/v1/prices/${dato}_${info.prisomrade}.json`;
-
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-
-        // Spotpris nå
-        const entry = data.find(e => {
-          const start = new Date(e.time_start);
-          return start.getHours() === idag.getHours();
-        });
-
-if (entry) {
-  const pris = (entry.NOK_per_kWh * 100).toFixed(2);
-  document.getElementById("pris").innerHTML =
-    `⚡ Strømpris i <b>${kommunenavn}</b> (${info.prisomrade}) akkurat nå: <b>${pris} øre/kWh</b><br>` +
-    `<i>${info.slagord || ""}</i><br>` +
-    `<small>(Pris ekskl. MVA)</small>`;
-}
-
- else {
-          document.getElementById("pris").textContent =
-            "Fant ikke pris for gjeldende time.";
-        }
-
-        // Hele dagens tabell
-        const priser = data.map(e => ({
-          tid: new Date(e.time_start).getHours(),
-          pris: e.NOK_per_kWh * 100
-        }));
-
-        const minPris = Math.min(...priser.map(p => p.pris));
-        const maxPris = Math.max(...priser.map(p => p.pris));
-
-        let html = "<table><tr><th>Time</th><th>Pris (øre/kWh)</th></tr>";
-        priser.forEach(p => {
-          let cls = "";
-          if (p.pris === minPris) cls = "cheap";
-          if (p.pris === maxPris) cls = "expensive";
-          html += `<tr class="${cls}"><td>${p.tid}:00</td><td>${p.pris.toFixed(2)}</td></tr>`;
-        });
-        html += "</table>";
-
-        document.getElementById("tabell").innerHTML = html;
-
-      } catch (err) {
-        document.getElementById("pris").textContent =
-          "Kunne ikke hente data.";
-        console.error(err);
-      }
-    }
-
-    lastKommuner();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
