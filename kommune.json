@@ -1,0 +1,8 @@
+{
+  "Valgr": { "prisomrade": "NO3" },
+  "Tresfjord": { "prisomrade": "NO3" },
+  "Oslo": { "prisomrade": "NO1" },
+  "Bergen": { "prisomrade": "NO5" },
+  "Kristiansand": { "prisomrade": "NO2" },
+  "Tromsø": { "prisomrade": "NO4" }
+}

@@ -6,15 +6,17 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Strømpris nå</h1>
+  <h1>⚡ Strømpris nå</h1>
 
   <label for="kommune">Velg kommune:</label>
-  <select id="kommune"></select>
+  <select id="kommune">
+    <option disabled selected>Velg...</option>
+  </select>
 
-  <div id="pris">Velg en kommune for å se prisen.</div>
+  <div id="pris">Ingen kommune valgt.</div>
 
   <script>
-    async function loadKommuner() {
+    async function lastKommuner() {
       const res = await fetch("kommune.json");
       const data = await res.json();
       const select = document.getElementById("kommune");
@@ -26,10 +28,10 @@
         select.appendChild(opt);
       }
 
-      select.addEventListener("change", () => hentPris(data[select.value]));
+      select.addEventListener("change", () => hentPris(data[select.value], select.value));
     }
 
-    async function hentPris(info) {
+    async function hentPris(info, kommunenavn) {
       const idag = new Date();
       const year = idag.getFullYear();
       const month = String(idag.getMonth() + 1).padStart(2, "0");
@@ -48,8 +50,8 @@
 
         if (entry) {
           const pris = (entry.NOK_per_kWh * 100).toFixed(2);
-          document.getElementById("pris").textContent =
-            `Pris nå (${info.prisomrade}): ${pris} øre/kWh`;
+          document.getElementById("pris").innerHTML =
+            `⚡ Strømpris i <b>${kommunenavn}</b> (${info.prisomrade}) akkurat nå: <b>${pris} øre/kWh</b>`;
         } else {
           document.getElementById("pris").textContent =
             "Fant ikke pris for gjeldende time.";
@@ -61,7 +63,7 @@
       }
     }
 
-    loadKommuner();
+    lastKommuner();
   </script>
 </body>
 </html>
