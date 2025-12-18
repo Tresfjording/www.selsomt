@@ -1,47 +1,57 @@
 ﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="no">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+  <meta charset="UTF-8">
+  <title>Strømpris-test</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; }
+    #strompris { font-size: 1.2em; margin-top: 1em; color: #0077cc; }
+    select { font-size: 1em; padding: 0.3em; }
+  </style>
 </head>
 <body>
-<div id="strompris" style="font-size: 1.2em; margin-top: 1em;"></div>
+  <h1>⚡ Strømpris og slagord</h1>
+  <label for="kommune">Velg kommune:</label>
+  <select id="kommune">
+    <option value="molde">Molde</option>
+    <option value="alesund">Ålesund</option>
+    <option value="alstahaug">Alstahaug</option>
+    <option value="alta">Alta</option>
+  </select>
 
-<script>
-async function visStrompris(kommune) {
-  try {
-    // Hent kommunedata
-    const res = await fetch('/kommuner_soner_slagord.json');
-    const kommunedata = await res.json();
+  <div id="strompris">Laster strømpris…</div>
 
-    // Slå opp kommune (bruk .toLowerCase() for sikkerhet)
-    const valgt = kommunedata[kommune.toLowerCase()];
-    if (!valgt || !valgt.sone) {
-      document.getElementById('strompris').textContent = 'Ugyldig kommunevalg';
-      return;
+  <script>
+    async function visStrompris(kommune) {
+      try {
+        const res = await fetch('/kommuner_soner_slagord.json');
+        const kommunedata = await res.json();
+
+        const valgt = kommunedata[kommune.toLowerCase()];
+        if (!valgt || !valgt.sone) {
+          document.getElementById('strompris').textContent = 'Ugyldig kommunevalg';
+          return;
+        }
+
+        const { sone, slagord } = valgt;
+        const prisres = await fetch(`https://www.tresfjording.no/strompris.php?sone=${sone}`);
+        const prisdata = await prisres.json();
+
+        const visning = prisdata.pris
+          ? `⚡ ${slagord ?? `Strømpris ${sone}`}: <b>${prisdata.pris}</b> kr/kWh`
+          : 'Pris ikke tilgjengelig';
+
+        document.getElementById('strompris').innerHTML = visning;
+      } catch (err) {
+        document.getElementById('strompris').textContent = 'Feil ved henting';
+        console.error(err);
+      }
     }
 
-    const { sone, slagord } = valgt;
-
-    // Hent strømpris fra backend
-    const prisres = await fetch(`https://www.tresfjording.no/strompris.php?sone=${sone}`);
-    const prisdata = await prisres.json();
-
-    // Lag visningstekst
-    const visning = prisdata.pris
-      ? `⚡ ${slagord ?? `Strømpris ${sone}`}: <b>${prisdata.pris}</b> kr/kWh`
-      : 'Pris ikke tilgjengelig';
-
-    document.getElementById('strompris').innerHTML = visning;
-  } catch (err) {
-    document.getElementById('strompris').textContent = 'Feil ved henting';
-    console.error(err);
-  }
-}
-
-// Test med valgt kommune
-visStrompris("Molde");
-</script>
+    // Initial visning
+    const dropdown = document.getElementById('kommune');
+    visStrompris(dropdown.value);
+    dropdown.addEventListener('change', () => visStrompris(dropdown.value));
+  </script>
 </body>
 </html>
