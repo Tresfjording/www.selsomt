@@ -136,7 +136,7 @@ if (query === "øyvind" || query === "øivind") {
 <script>
 async function visStrompris() {
   try {
-    const res = await fetch('httpd://www.tresfjording.no/strompris.php', {cache: 'no-store'});
+    const res = await fetch('https://www.tresfjording.no/strompris.php', {cache: 'no-store'});
     const data = await res.json();
     document.getElementById('strompris').innerHTML =
       data.pris
