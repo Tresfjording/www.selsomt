@@ -137,7 +137,7 @@ if (query === "øyvind" || query === "øivind") {
 <script>
 async function visStrompris() {
   try {
-    const res = await fetch('strompris.php', {cache: 'no-store'});
+    const res = await fetch('https://tresfjording.no/strompris.php', {cache: 'no-store'});
     const data = await res.json();
     document.getElementById('strompris').textContent =
       data.pris ? `⚡ Strømpris NO3 nå:<b ${data.pris} kr/kWh` : 'Pris ikke tilgjengelig';
