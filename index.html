@@ -2,18 +2,17 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
-  <title>Spotpris og slagord</title>
+  <title>Strømpris nå</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 2rem; }
     label { display: block; margin-bottom: 0.5rem; }
-    input, select { padding: 0.5rem; margin-bottom: 1rem; width: 250px; }
+    input { padding: 0.5rem; margin-bottom: 1rem; width: 250px; }
     #resultat { margin-top: 1rem; padding: 1rem; border: 1px solid #ccc; }
     .highlight { font-weight: bold; color: darkgreen; }
   </style>
 </head>
 <body>
-  <h1>Kommuneslagord og sone</h1>
+  <h1>Strømpris nå</h1>
 
   <label for="kommuneInput">Velg kommune:</label>
   <input list="kommuner" id="kommuneInput" placeholder="Skriv kommune...">
@@ -24,6 +23,7 @@
   <div id="resultat">
     <p>Sone: <span id="soneDisplay" class="highlight"></span></p>
     <p>Slagord: <span id="slagordDisplay" class="highlight"></span></p>
+    <p>Dagens spotpris: <span id="prisDisplay" class="highlight"></span></p>
   </div>
 
   <script src="script.js"></script>
