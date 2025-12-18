@@ -33,6 +33,26 @@
 
   </footer>
 
+  <script>
+async function visStrompris() {
+  try {
+    const res = await fetch('https://www.tresfjording.no/strompris.php', {cache: 'no-store'});
+    const data = await res.json();
+    document.getElementById('strompris').innerHTML =
+      data.pris
+        ? `⚡ Strømpris NO3 nå: <b>${data.pris} kr/kWh</b>`
+        : 'Pris ikke tilgjengelig';
+  } catch (err) {
+    document.getElementById('strompris').textContent = 'Feil ved henting';
+    console.error(err);
+  }
+}
+visStrompris();
+</script>
+</script>
+
+
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const files = ["facts.json", "djt.json"];
@@ -133,22 +153,7 @@ if (query === "øyvind" || query === "øivind") {
 
 
 
-<script>
-async function visStrompris() {
-  try {
-    const res = await fetch('https://www.tresfjording.no/strompris.php', {cache: 'no-store'});
-    const data = await res.json();
-    document.getElementById('strompris').innerHTML =
-      data.pris
-        ? `⚡ Strømpris NO3 nå: <b>${data.pris} kr/kWh</b>`
-        : 'Pris ikke tilgjengelig';
-  } catch (err) {
-    document.getElementById('strompris').textContent = 'Feil ved henting';
-    console.error(err);
-  }
-}
-visStrompris();
-</script>
+
 
 
 
