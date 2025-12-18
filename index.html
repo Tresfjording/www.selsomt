@@ -136,12 +136,15 @@
           return start.getHours() === idag.getHours();
         });
 
-        if (entry) {
-          const pris = (entry.NOK_per_kWh * 100).toFixed(2);
-          document.getElementById("pris").innerHTML =
-            `⚡ Strømpris i <b>${kommunenavn}</b> (${info.prisomrade}) akkurat nå: <b>${pris} øre/kWh</b><br>` +
-            `<i>${info.slagord || ""}</i>`;
-        } else {
+if (entry) {
+  const pris = (entry.NOK_per_kWh * 100).toFixed(2);
+  document.getElementById("pris").innerHTML =
+    `⚡ Strømpris i <b>${kommunenavn}</b> (${info.prisomrade}) akkurat nå: <b>${pris} øre/kWh</b><br>` +
+    `<i>${info.slagord || ""}</i><br>` +
+    `<small>(Pris ekskl. MVA)</small>`;
+}
+
+ else {
           document.getElementById("pris").textContent =
             "Fant ikke pris for gjeldende time.";
         }
