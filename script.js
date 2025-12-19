@@ -53,14 +53,14 @@ async function oppdaterInfo(kommuneNavn, data) {
     return;
   }
 
-  document.getElementById('fylkeDisplay').textContent = entry["fylke"] ?? 'Ukjent';
-  document.getElementById('folketallDisplay').textContent = entry["folketall"]?.toLocaleString('no-NO') ?? '�';
-  document.getElementById('soneDisplay').textContent = entry.sone ?? 'Ukjent';
-  document.getElementById('slagordDisplay').textContent = entry.slagord || 'Ingen slagord registrert';
+  document.getElementById('fylkeDisplay').textContent = entry["fylke"] 'Ukjent';
+  document.getElementById('folketallDisplay').textContent = entry["folketall"].toLocaleString('no-NO') ?? '�';
+  document.getElementById('soneDisplay').textContent = entry.sone  'Ukjent';
+  document.getElementById('slagordDisplay').textContent = entry.slagord 'Ingen slagord registrert';
   document.getElementById('statusDisplay').textContent = `✅ Fant data for ${entry.kommunenavn}`;
 
   const pris = await hentSpotpris(entry.sone);
-  document.getElementById('prisDisplay').textContent = pris ? `${pris} �re/kWh` : 'Ingen pris tilgjengelig';
+  document.getElementById('prisDisplay').textContent = pris `${pris} �re/kWh` : 'Ingen pris tilgjengelig';
 }
 document.addEventListener('DOMContentLoaded', async () => {
   const data = await hentStederdata();
