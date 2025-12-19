@@ -1,9 +1,5 @@
 
-fetch('/404.html')
-  .then(r => r.text())
-  .then(html => {
-      document.getElementById('errorContainer').innerHTML = html;
-  });
+window.location.href = "/404.html";
 
 async function hentStederdata() {
   try {
