@@ -62,7 +62,7 @@ async function oppdaterInfo(kommuneNavn, data) {
  
 
   const pris = await hentSpotpris(entry.sone);
-  document.getElementById('prisDisplay').textContent = pris ? `${pris} �re/kWh` : 'Ingen pris tilgjengelig';
+  document.getElementById('prisDisplay').textContent = pris ? `${pris} �re/kWh ekskl. MVA` : 'Ingen pris tilgjengelig';
 }
 document.addEventListener('DOMContentLoaded', async () => {
   const data = await hentStederdata();
