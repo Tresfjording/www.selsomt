@@ -1,6 +1,6 @@
 async function hentStederdata() {
   try {
-    const response = await fetch('steder.json');
+    const response = await fetch('/steder.json');
     if (!response.ok) throw new Error('Kunne ikke hente JSON');
     return await response.json();
   } catch (error) {
