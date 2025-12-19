@@ -16,7 +16,7 @@ function fyllDatalist(data) {
   datalist.innerHTML = '';
   data.forEach(entry => {
     const option = document.createElement('option');
-    option.value = entry["Kommunenavn"];
+    option.value = entry["kommunenavn"];
     datalist.appendChild(option);
   });
 }
