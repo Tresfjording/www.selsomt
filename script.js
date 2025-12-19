@@ -12,7 +12,7 @@ async function hentStederdata() {
 
 
 function fyllDatalist(data) {
-  const datalist = document.getElementById('kommuner');
+  const datalist = document.getElementById('kommune');
   datalist.innerHTML = '';
   data.forEach(entry => {
     const option = document.createElement('option');
