@@ -1,6 +1,6 @@
 async function hentKommunedata() {
   try {
-    const response = await fetch('kommuner_soner_slagord.json');
+    const response = await fetch('steder.json');
     if (!response.ok) throw new Error('Kunne ikke hente JSON');
     return await response.json();
   } catch (error) {
