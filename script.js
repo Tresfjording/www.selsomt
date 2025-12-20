@@ -87,43 +87,26 @@ function visFeilmelding(msg) {
 }
 
 // /api/se3-now.js
-import fetch from "node-fetch";
-import { JSDOM } from "jsdom";
-
-export default async function handler(req, res) {
+async function hentSE3() {
   try {
-    const response = await fetch("https://www.elekt.com/no/spotpriser/sverige/se3");
-    const html = await response.text();
+    const url = "https://api.energidataservice.dk/dataset/Elspotprices?filter=%7B%22PriceArea%22%3A%20%22SE3%22%7D&limit=1&sort=HourUTC%20desc";
 
-    const dom = new JSDOM(html);
-    const doc = dom.window.document;
-
-    // Henter kun nåprisen
-    const now = doc.querySelector(".price-now .value")?.textContent.trim();
-
-    res.status(200).json({
-      now: now || null
-    });
-  } catch (error) {
-    res.status(500).json({ error: "Kunne ikke hente SE3-prisen" });
-  }
-}
-
-async function loadSE3() {
-  try {
-    const res = await fetch("/api/se3-now");
+    const res = await fetch(url);
     const data = await res.json();
 
-    const now = data.now || "—";
+    // Pris kommer i EUR/MWh → vi gjør om til øre/kWh
+    const eurMWh = data.records[0].SpotPriceEUR;
+    const nokPerKWh = eurMWh * 11.5 / 1000 * 100; // 11.5 = ca. NOK/EUR
 
-    document.getElementById("se3-price").innerHTML = `
-      🇸🇪 Sverige (SE3 – Stockholm): <strong>${now}</strong> øre/kWh akkurat nå
-    `;
+    const avrundet = Math.round(nokPerKWh);
+
+    document.getElementById("se3-price").innerHTML =
+      `🇸🇪 Sverige (SE3 – Stockholm): <strong>${avrundet}</strong> øre/kWh akkurat nå`;
+
   } catch (e) {
-    document.getElementById("se3-price").innerHTML = `
-      🇸🇪 Sverige (SE3 – Stockholm): ikke tilgjengelig
-    `;
+    document.getElementById("se3-price").innerHTML =
+      "🇸🇪 Sverige (SE3 – Stockholm): ikke tilgjengelig";
   }
 }
 
-loadSE3();
+hentSE3();

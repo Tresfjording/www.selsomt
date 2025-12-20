@@ -1,0 +1,25 @@
+{
+  "name": "selsomtfiler",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Tresfjording/www.selsomt#readme",
+  "bugs": {
+    "url": "https://github.com/Tresfjording/www.selsomt/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tresfjording/www.selsomt.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "jsdom": "^27.3.0",
+    "node-fetch": "^3.3.2"
+  }
+}
