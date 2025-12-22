@@ -38,6 +38,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('visInfoBtn').addEventListener('click', () => {
     const kommune = document.getElementById('kommuneInput').value.trim();
     oppdaterInfo(kommune, data);
+    visRandomFakta();
+
   });
 });
 
