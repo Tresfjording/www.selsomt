@@ -32,14 +32,13 @@ function fyllDatalist(data) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   const data = await hentStederdata();
-  //console.log("Kommunedata:", data); // ← flyttet hit
   fyllDatalist(data);
+  visRandomFakta(); // ← ved lasting
 
   document.getElementById('visInfoBtn').addEventListener('click', () => {
     const kommune = document.getElementById('kommuneInput').value.trim();
     oppdaterInfo(kommune, data);
-    visRandomFakta();
-
+    visRandomFakta(); // ← ved klikk
   });
 });
 
@@ -146,3 +145,8 @@ async function visRandomFakta() {
     console.error("Feil ved henting av fakta:", e);
   }
 }
+
+const faktaEl = document.getElementById('faktaDisplay');
+faktaEl.classList.remove('vis');
+void faktaEl.offsetWidth; // trigger reflow
+faktaEl.classList.add('vis');
