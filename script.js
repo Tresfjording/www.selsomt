@@ -150,3 +150,27 @@ const faktaEl = document.getElementById('faktaDisplay');
 faktaEl.classList.remove('vis');
 void faktaEl.offsetWidth; // trigger reflow
 faktaEl.classList.add('vis');
+
+async function hentDK2() {
+  try {
+    const url = "https://api.energidataservice.dk/dataset/Elspotprices?filter=%7B%22PriceArea%22%3A%20%22DK2%22%7D&limit=1&sort=HourUTC%20desc";
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const eurMWh = data.records[0].SpotPriceEUR;
+
+    // Omregning: EUR/MWh → NOK/kWh → øre/kWh
+    const nokPerKWh = eurMWh * 11.5 / 1000 * 100;
+
+    const avrundet = Math.round(nokPerKWh);
+
+    document.getElementById("dk2-price").innerHTML =
+      `🇩🇰 Danmark (DK2 – København): <strong>${avrundet}</strong> øre/kWh akkurat nå`;
+
+  } catch (e) {
+    document.getElementById("dk2-price").innerHTML =
+      "🇩🇰 Danmark (DK2 – København): ikke tilgjengelig";
+  }
+}
+hentDK2();
