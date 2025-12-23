@@ -39,7 +39,7 @@ function visTettsted() {
 function visFeilmelding(msg) {
   const el = document.getElementById('statusDisplay');
   if (el) el.textContent = msg;
-}
+
 
 function oppdaterInfo(entry) {
   document.getElementById('statusDisplay').textContent = `☑ Fant data for ${entry.tettsted}`;
