@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     document.getElementById('visButton').addEventListener('click', visTettsted);
-);
+});
 // SE3
 async function hentSE3() {
   try {
