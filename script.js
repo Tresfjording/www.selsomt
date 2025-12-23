@@ -1,48 +1,48 @@
 
-
+let steder = [];
 
 async function hentStederdata() {
   try {
     const response = await fetch('/tettsteder.json');
     if (!response.ok) throw new Error('Kunne ikke hente JSON');
-    const data = await response.json();
-    return data;
+    steder = await response.json(); // lagre globalt
+    fyllDatalist(steder);           // kall videre funksjon
   } catch (error) {
     console.error('Feil ved henting av stededata:', error);
-    return []; // Returner tom array for å unngå null-feil
   }
 }
 
 
-function fyllDatalist(data) {
-  const datalist = document.getElementById('kommune');
-  datalist.innerHTML = '';
-  data.forEach(entry => {
+function fyllDatalist(steder) {
+  if (!Array.isArray(steder)) {
+    console.warn('Ingen steder å fylle inn');
+    return;
+  }
+
+  const datalist = document.getElementById('stedListe');
+  datalist.innerHTML = ''; // rydd opp først
+
+  steder.forEach(entry => {
     const option = document.createElement('option');
-    option.value = entry.kommunenavn;
+    option.value = entry.tettsted;
     datalist.appendChild(option);
   });
 }
 
+function visTettsted() {
+  const søk = document.getElementById('søkInput').value.trim().toLowerCase();
+  const entry = steder.find(e => e.tettsted.toLowerCase() === søk);
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const data = await hentStederdata();
-  fyllDatalist(data);
-  visRandomFakta();
+  if (!entry) {
+    document.getElementById('statusDisplay').textContent = '⚠ Fant ikke kommunenavn';
+    return;
+  }
 
-  // Klikk på knappen
-  document.getElementById('visInfoBtn').addEventListener('click', () => {
-    const kommune = document.getElementById('kommuneInput').value.trim();
-    oppdaterInfo(kommune, data);
-    visRandomFakta();
+  // vis data her...
+}
   });
 
-  // 👉 ENTER-FUNKSJONEN – lim inn her
-  document.getElementById('kommuneInput').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      document.getElementById('visInfoBtn').click();
-    }
-  });
+  document.getElementById('visButton').addEventListener('click', visTettsted);
 });
 
 async function hentSpotpris(sone) {
