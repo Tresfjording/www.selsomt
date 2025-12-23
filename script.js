@@ -86,10 +86,18 @@ async function oppdaterInfo(kommuneNavn, data) {
   document.getElementById('statusDisplay').textContent =
     `✅ Fant data for ${entry.kommunenavn}`;
 
-  document.getElementById('fylkeDisplay').textContent = entry.fylke ?? 'Ukjent';
-  document.getElementById('folketallDisplay').textContent = entry.folketall?.toLocaleString('no-NO') ?? ' ';
-  document.getElementById('soneDisplay').textContent = entry.sone ?? 'Ukjent';
-  document.getElementById('slagordDisplay').textContent = entry.slagord || 'Ingen slagord registrert';
+  document.getElementById('k_nrDisplay').textContent = entry.fylke ?? 'Ukjent';
+  document.getElementById('tettstedDisplay').textContent = entry.folketall?.toLocaleString('no-NO') ?? ' ';
+  document.getElementById('fylkeDisplay').textContent = entry.sone ?? 'Ukjent';
+  document.getElementById('soneDisplay').textContent = entry.slagord || 'Ingen slagord registrert';
+  document.getElementById('antallDisplay').textContent = entry.sone ?? 'Ukjent';
+  document.getElementById('arealDisplay').textContent = entry.sone ?? 'Ukjent';
+  document.getElementById('sysselsatteDisplay').textContent = entry.sone ?? 'Ukjent';
+  document.getElementById('tilskuddDisplay').textContent = entry.sone ?? 'Ukjent';
+  document.getElementById('språkDisplay').textContent = entry.sone ?? 'Ukjent';
+  document.getElementById('k_slagordDisplay').textContent = entry.sone ?? 'Ukjent';
+  document.getElementById('f_slagordDisplay').textContent = entry.sone ?? 'Ukjent';
+
 
   const pris = await hentSpotpris(entry.sone);
   document.getElementById('prisDisplay').textContent =
