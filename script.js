@@ -30,16 +30,19 @@ function visTettsted() {
 
   if (!entry) {
     visFeilmelding('⚠ Fant ikke kommunenavn');
-    return; // ✅ dette er lov her
+    return;
   }
 
-  oppdaterInfo(entry);
+function oppdaterInfo(entry) {
+  // ✅ nå er entry definert
+  document.getElementById('statusDisplay').textContent = `Fant ${entry.tettsted}`;
+  // ...
 }
 
 function visFeilmelding(msg) {
   const el = document.getElementById('statusDisplay');
   if (el) el.textContent = msg;
-
+}
 
 function oppdaterInfo(entry) {
   document.getElementById('statusDisplay').textContent = `☑ Fant data for ${entry.tettsted}`;
