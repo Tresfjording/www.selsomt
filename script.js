@@ -136,11 +136,13 @@ async function hentDK2() {
 
     document.getElementById("dk2-price").innerHTML =
       `🇩🇰 Danmark (DK2 – København): <strong>${avrundet}</strong> øre/kWh akkurat nå`;
-  } catch (e) {
+  } 
+  
+  catch (e) {
     document.getElementById("dk2-price").innerHTML =
       "🇩🇰 Danmark (DK2 – København): ikke tilgjengelig";
   }
-}
+
 
 // -----------------------------
 // RANDOM FAKTA
