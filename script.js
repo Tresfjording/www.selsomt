@@ -56,8 +56,8 @@ function oppdaterInfo(entry) {
   document.getElementById('f_slagordDisplay').textContent = entry.f_slagord || 'Ingen slagord registrert';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  hentStederdata();
+document.addEventListener('DOMContentLoaded', async () => {
+  await hentStederdata();
 
   document.getElementById('søkInput').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') visTettsted();
@@ -120,11 +120,11 @@ document.getElementById('f_slagordDisplay').textContent = entry.f_slagord || 'In
   const pris = await hentSpotpris(entry.sone);
   document.getElementById('prisDisplay').textContent =
     pris ? `${pris} øre/kWh ekskl. MVA` : 'Ingen pris tilgjengelig';
-});
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const data = await hentStederdata();
-  fyllDatalist(data);
+  await hentStederdata(); // ✅ nå er await lov
+});
 
   document.getElementById('visInfoBtn').addEventListener('click', () => {
     const kommune = document.getElementById('kommuneInput').value.trim();
