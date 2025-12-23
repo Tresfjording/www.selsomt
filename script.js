@@ -179,25 +179,5 @@ async function hentDK2() {
   }
 }
 
-//hentFI();
-async function hentFI() {
-  try {
-    const res = await fetch("https://api.energyprices.eu/v1/spot/finland");
-    const data = await res.json();
-
-    const eurPerKWh = data.current.price; // EUR/kWh
-    const nokPerKWh = eurPerKWh * 11.5 * 100; // → øre/kWh
-    const avrundet = Math.round(nokPerKWh);
-
-    document.getElementById("fi-price").innerHTML =
-      `🇫🇮 Finland (FI – Helsinki): <strong>${avrundet}</strong> øre/kWh akkurat nå`;
-
-  } catch (e) {
-    console.error("FI-feil:", e);
-    document.getElementById("fi-price").innerHTML =
-      "🇫🇮 Finland (FI – Helsinki): ikke tilgjengelig";
-  }
-}
 hentSE3();   // ← Stockholm
 hentDK2();   // ← København 
-hentFI();   // ← Helsinki
