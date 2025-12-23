@@ -2,6 +2,7 @@
   "name": "selsomtfiler",
   "version": "1.0.0",
   "description": "",
+  "keywords": [],
   "homepage": "https://github.com/Tresfjording/www.selsomt#readme",
   "bugs": {
     "url": "https://github.com/Tresfjording/www.selsomt/issues"
@@ -23,5 +24,5 @@
     "jsdom": "^27.3.0",
     "node-fetch": "^3.3.2"
   },
-  "keywords": []
+  "devDependencies": {}
 }
