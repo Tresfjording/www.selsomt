@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const kommune = document.getElementById('kommuneInput').value.trim();
     oppdaterInfo(kommune, data);
   });
-});
+
 
 function visFeilmelding(msg) {
   document.getElementById('fylkeDisplay').textContent = ' ';
