@@ -57,14 +57,13 @@ function oppdaterInfo(entry) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await hentStederdata(); // ✅ nå er await lov
-});
+    await hentStederdata();
 
-  document.getElementById('søkInput').addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') visTettsted();
-  });
+    document.getElementById('søkInput').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') visTettsted();
+    });
 
-  document.getElementById('visButton').addEventListener('click', visTettsted);
+    document.getElementById('visButton').addEventListener('click', visTettsted);
 });
 
 async function hentSpotpris(sone) {
