@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     document.getElementById('visButton').addEventListener('click', visTettsted);
-});
+}
 
 async function hentSpotpris(sone) {
   const dato = new Date();
