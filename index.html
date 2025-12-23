@@ -3,45 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <title>Strømprisen akkurat nå</title>
+
   <link rel="stylesheet" href="/style.css">
   <script src="/script.js" defer></script>
   <link rel="icon" href="/favicon.ico">
 </head>
+
 <body>
+
   <h1>Strømprisen akkurat nå</h1>
 
+  <!-- Søkefelt og knapp -->
   <input id="søkInput" list="stedListe" placeholder="Skriv kommunenavn her">
-<datalist id="stedListe"></datalist>
-<button id="visButton">Vis info</button>
+  <datalist id="stedListe"></datalist>
+  <button id="visButton">Vis info</button>
 
-<p><strong>status:</strong> <span id="statusDisplay"></span></p>
-<p><strong>k_nr:</strong> <span id="k_nrDisplay"></span></p>
-<p><strong>tettsted:</strong> <span id="tettstedDisplay"></span></p>
-<p><strong>fylke:</strong> <span id="fylkeDisplay"></span></p>
-<p><strong>sone:</strong> <span id="soneDisplay"></span></p>
-<p><strong>antall:</strong> <span id="antallDisplay"></span></p>
-<p><strong>areal:</strong> <span id="arealDisplay"></span></p>
-<p><strong>sysselsatte:</strong> <span id="sysselsatteDisplay"></span></p>
-<p><strong>tilskudd:</strong> <span id="tilskuddDisplay"></span></p>
-<p><strong>språk:</strong> <span id="språkDisplay"></span></p>
-<p><strong>k_slagord:</strong> <span id="k_slagordDisplay"></span></p>
-<p><strong>f_slagord:</strong> <span id="f_slagordDisplay"></span></p>
+  <!-- Resultatfelt -->
+  <p><strong>Status:</strong> <span id="statusDisplay"></span></p>
+  <p><strong>k_nr:</strong> <span id="k_nrDisplay"></span></p>
+  <p><strong>Tettsted:</strong> <span id="tettstedDisplay"></span></p>
+  <p><strong>Fylke:</strong> <span id="fylkeDisplay"></span></p>
+  <p><strong>Sone:</strong> <span id="soneDisplay"></span></p>
+  <p><strong>Antall:</strong> <span id="antallDisplay"></span></p>
+  <p><strong>Areal:</strong> <span id="arealDisplay"></span></p>
+  <p><strong>Sysselsatte:</strong> <span id="sysselsatteDisplay"></span></p>
+  <p><strong>Tilskudd:</strong> <span id="tilskuddDisplay"></span></p>
+  <p><strong>Språk:</strong> <span id="språkDisplay"></span></p>
+  <p><strong>Kommune‑slagord:</strong> <span id="k_slagordDisplay"></span></p>
+  <p><strong>Fylkes‑slagord:</strong> <span id="f_slagordDisplay"></span></p>
 
-    
-
-
-<p id="se3-price" class="prislinje"></p>
-<p id="dk2-price" class="prislinje"></p>
-
-
-
+  <!-- Spotpriser for Norden -->
+  <p id="se3-price" class="prislinje"></p>
+  <p id="dk2-price" class="prislinje"></p>
 
   <hr>
-<p id="faktaDisplay" style="font-style: italic; color: #888; text-align: center; margin-top: 2rem;">
-  💡 Fakta: ...
-</p>
 
-
+  <!-- Fakta-boks -->
+  <p id="faktaDisplay"
+     style="font-style: italic; color: #888; text-align: center; margin-top: 2rem;">
+     💡 Fakta: ...
+  </p>
 
 </body>
 </html>

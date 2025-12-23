@@ -1,6 +1,8 @@
+let steder = [];
 
-let steder = []; 
-
+// -----------------------------
+// HENT TETTSTEDER
+// -----------------------------
 async function hentStederdata() {
   try {
     const response = await fetch('/tettsteder.json');
@@ -12,6 +14,9 @@ async function hentStederdata() {
   }
 }
 
+// -----------------------------
+// FYLL DATALIST
+// -----------------------------
 function fyllDatalist(data) {
   const liste = document.getElementById('stedListe');
   if (!liste || !Array.isArray(data)) return;
@@ -24,7 +29,10 @@ function fyllDatalist(data) {
   });
 }
 
-function visTettsted() {
+// -----------------------------
+// VIS TETTSTED
+// -----------------------------
+async function visTettsted() {
   const søk = document.getElementById('søkInput').value.trim().toLowerCase();
   const entry = steder.find(e => e.tettsted.toLowerCase() === søk);
 
@@ -33,19 +41,28 @@ function visTettsted() {
     return;
   }
 
-function oppdaterInfo(entry) {
-  // ✅ nå er entry definert
-  document.getElementById('statusDisplay').textContent = `Fant ${entry.tettsted}`;
-  // ...
+  oppdaterInfo(entry);
+
+  // hent spotpris
+  const pris = await hentSpotpris(entry.sone);
+  document.getElementById('prisDisplay').textContent =
+    pris ? `${pris} øre/kWh ekskl. MVA` : 'Ingen pris tilgjengelig';
 }
 
+// -----------------------------
+// VIS FEILMELDING
+// -----------------------------
 function visFeilmelding(msg) {
-  const el = document.getElementById('statusDisplay');
-  if (el) el.textContent = msg;
+  document.getElementById('statusDisplay').textContent = msg;
 }
 
+// -----------------------------
+// OPPDATER INFOFELTENE
+// -----------------------------
 function oppdaterInfo(entry) {
-  document.getElementById('statusDisplay').textContent = `☑ Fant data for ${entry.tettsted}`;
+  document.getElementById('statusDisplay').textContent =
+    `☑ Fant data for ${entry.tettsted}`;
+
   document.getElementById('k_nrDisplay').textContent = entry.k_nr ?? 'Ukjent';
   document.getElementById('tettstedDisplay').textContent = entry.tettsted ?? 'Ukjent';
   document.getElementById('fylkeDisplay').textContent = entry.fylke ?? 'Ukjent';
@@ -59,16 +76,9 @@ function oppdaterInfo(entry) {
   document.getElementById('f_slagordDisplay').textContent = entry.f_slagord || 'Ingen slagord registrert';
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await hentStederdata();
-
-    document.getElementById('søkInput').addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') visTettsted();
-    });
-
-    document.getElementById('visButton').addEventListener('click', visTettsted);
-});
-
+// -----------------------------
+// HENT SPOTPRIS
+// -----------------------------
 async function hentSpotpris(sone) {
   const dato = new Date();
   const year = dato.getFullYear();
@@ -88,91 +98,53 @@ async function hentSpotpris(sone) {
     console.error("Feil ved henting av spotpris:", error);
     return null;
   }
-
-
-//function oppdaterInfo(entry) {
-//  document.getElementById('statusDisplay').textContent =
-//    `☑ Fant data for ${entry.tettsted}`;
-  // osv...
-
-
-  const entry = data.find(x => x.kommunenavn?.toLowerCase() === kommuneNavn.toLowerCase());
-  if (!entry) {
-    visFeilmelding("Fant ikke kommunen i stededata.");
-    return;
-  }
-
-  document.getElementById('statusDisplay').textContent =
-    `☑ Fant data for ${entry.tettsted}`
-
-document.getElementById('k_nrDisplay').textContent = entry.k_nr ?? 'Ukjent';
-document.getElementById('tettstedDisplay').textContent = entry.tettsted ?? 'Ukjent';
-document.getElementById('fylkeDisplay').textContent = entry.fylke ?? 'Ukjent';
-document.getElementById('soneDisplay').textContent = entry.sone ?? 'Ukjent';
-
-document.getElementById('antallDisplay').textContent = entry.antall ?? 'Ukjent';
-document.getElementById('arealDisplay').textContent = entry.areal?.toLocaleString('no') ?? 'Ukjent';
-document.getElementById('sysselsatteDisplay').textContent = entry.sysselsatte?.toLocaleString('no') ?? 'Ukjent';
-document.getElementById('tilskuddDisplay').textContent = entry.tilskudd ?? 'Ukjent';
-document.getElementById('språkDisplay').textContent = entry.språk ?? 'Ukjent';
-
-document.getElementById('k_slagordDisplay').textContent = entry.k_slagord || 'Ingen slagord registrert';
-document.getElementById('f_slagordDisplay').textContent = entry.f_slagord || 'Ingen slagord registrert';
-
-async function init() {
-  steder = await hentStederdata();
-  // videre oppsett
-}
-init();
-
-  const pris = await hentSpotpris(entry.sone);
-  document.getElementById('prisDisplay').textContent =
-    pris ? `${pris} øre/kWh ekskl. MVA` : 'Ingen pris tilgjengelig';
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  await hentStederdata(); // ✅ nå er await lov
-});
-
-  document.getElementById('visInfoBtn').addEventListener('click', () => {
-    const kommune = document.getElementById('kommuneInput').value.trim();
-    oppdaterInfo(kommune, data);
-  });
-});
-
-function visFeilmelding(msg) {
-  document.getElementById('fylkeDisplay').textContent = ' ';
-  document.getElementById('folketallDisplay').textContent = ' ';
-  document.getElementById('soneDisplay').textContent = ' ';
-  document.getElementById('slagordDisplay').textContent = msg;
-  document.getElementById('prisDisplay').textContent = ' ';
-}
-
-// SE3
+// -----------------------------
+// HENT SE3
+// -----------------------------
 async function hentSE3() {
   try {
     const url = "https://api.energidataservice.dk/dataset/Elspotprices?filter=%7B%22PriceArea%22%3A%20%22SE3%22%7D&limit=1&sort=HourUTC%20desc";
-
     const res = await fetch(url);
     const data = await res.json();
 
     const eurMWh = data.records[0].SpotPriceEUR;
     const nokPerKWh = eurMWh * 11.5 / 1000 * 100;
-
     const avrundet = Math.round(nokPerKWh);
 
     document.getElementById("se3-price").innerHTML =
       `🇸🇪 Sverige (SE3 – Stockholm): <strong>${avrundet}</strong> øre/kWh akkurat nå`;
-
   } catch (e) {
     document.getElementById("se3-price").innerHTML =
       "🇸🇪 Sverige (SE3 – Stockholm): ikke tilgjengelig";
   }
 }
 
-//hentSE3();
-console.log("Knapp trykket!");
+// -----------------------------
+// HENT DK2
+// -----------------------------
+async function hentDK2() {
+  try {
+    const url = "https://api.energidataservice.dk/dataset/Elspotprices?filter=%7B%22PriceArea%22%3A%20%22DK2%22%7D&limit=1&sort=HourUTC%20desc";
+    const res = await fetch(url);
+    const data = await res.json();
 
+    const eurMWh = data.records[0].SpotPriceEUR;
+    const nokPerKWh = eurMWh * 11.5 / 1000 * 100;
+    const avrundet = Math.round(nokPerKWh);
+
+    document.getElementById("dk2-price").innerHTML =
+      `🇩🇰 Danmark (DK2 – København): <strong>${avrundet}</strong> øre/kWh akkurat nå`;
+  } catch (e) {
+    document.getElementById("dk2-price").innerHTML =
+      "🇩🇰 Danmark (DK2 – København): ikke tilgjengelig";
+  }
+}
+
+// -----------------------------
+// RANDOM FAKTA
+// -----------------------------
 async function visRandomFakta() {
   try {
     const res = await fetch('/facts.json');
@@ -186,34 +158,17 @@ async function visRandomFakta() {
   }
 }
 
-const faktaEl = document.getElementById('faktaDisplay');
-faktaEl.classList.remove('vis');
-void faktaEl.offsetWidth; // trigger reflow
-faktaEl.classList.add('vis');
+// -----------------------------
+// INIT
+// -----------------------------
+document.addEventListener('DOMContentLoaded', async () => {
+  await hentStederdata();
+  hentSE3();
+  hentDK2();
 
+  document.getElementById('søkInput').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') visTettsted();
+  });
 
-//hentDK2();
-async function hentDK2() {
-  try {
-    const url = "https://api.energidataservice.dk/dataset/Elspotprices?filter=%7B%22PriceArea%22%3A%20%22DK2%22%7D&limit=1&sort=HourUTC%20desc";
-
-    const res = await fetch(url);
-    const data = await res.json();
-
-    const eurMWh = data.records[0].SpotPriceEUR;
-    const nokPerKWh = eurMWh * 11.5 / 1000 * 100;
-    const avrundet = Math.round(nokPerKWh);
-
-    document.getElementById("dk2-price").innerHTML =
-      `🇩🇰 Danmark (DK2 – København): <strong>${avrundet}</strong> øre/kWh akkurat nå`;
-
-  } catch (e) {
-    document.getElementById("dk2-price").innerHTML =
-      "🇩🇰 Danmark (DK2 – København): ikke tilgjengelig";
-  }
-}
-
-hentSE3();   // ← Stockholm
-hentDK2();   // ← København 
-
-console.log('Valgt entry:', entry); 
+  document.getElementById('visButton').addEventListener('click', visTettsted);
+});
