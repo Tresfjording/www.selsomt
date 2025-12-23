@@ -136,7 +136,7 @@ async function hentSE3() {
   }
 }
 
-hentSE3();
+//hentSE3();
 console.log("Knapp trykket!");
 
 async function visRandomFakta() {
@@ -176,4 +176,28 @@ async function hentDK2() {
       "🇩🇰 Danmark (DK2 – København): ikke tilgjengelig";
   }
 }
-hentDK2();
+//hentDK2();
+
+async function hentFI() {
+  try {
+    const url = "https://api.energidataservice.dk/dataset/Elspotprices?filter=%7B%22PriceArea%22%3A%20%22FI%22%7D&limit=1&sort=HourUTC%20desc";
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const eurMWh = data.records[0].SpotPriceEUR;
+    const nokPerKWh = eurMWh * 11.5 / 1000 * 100;
+    const avrundet = Math.round(nokPerKWh);
+
+    document.getElementById("fi-price").innerHTML =
+      `🇫🇮 Finland (FI – Helsinki): <strong>${avrundet}</strong> øre/kWh akkurat nå`;
+
+  } catch (e) {
+    document.getElementById("fi-price").innerHTML =
+      "🇫🇮 Finland (FI – Helsinki): ikke tilgjengelig";
+  }
+}
+
+hentSE3();   // ← Stockholm
+hentDK2();   // ← København 
+hentFI();   // ← Helsinki
