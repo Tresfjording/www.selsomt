@@ -1,21 +1,15 @@
 
-console.log("Prøver å hente kommuneliste...");
+
 
 async function hentStederdata() {
   try {
     const response = await fetch('/tettsteder.json');
     if (!response.ok) throw new Error('Kunne ikke hente JSON');
-
-    const dataObj = await response.json();
-    const data = Object.entries(dataObj).map(([kommunenavn, info]) => ({
-      kommunenavn,
-      ...info
-    }));
-
+    const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Feil ved henting av stederdata:', error);
-    return null;
+    console.error('Feil ved henting av stededata:', error);
+    return []; // Returner tom array for å unngå null-feil
   }
 }
 
@@ -192,3 +186,5 @@ async function hentDK2() {
 
 hentSE3();   // ← Stockholm
 hentDK2();   // ← København 
+
+console.log('Valgt entry:', entry);
