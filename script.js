@@ -1,5 +1,5 @@
 
-let steder = [];
+let steder = []; 
 
 async function hentStederdata() {
   try {
