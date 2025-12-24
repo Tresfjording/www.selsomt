@@ -5,7 +5,7 @@ let steder = [];
 // -----------------------------
 async function hentStederdata() {
   try {
-    const response = await fetch('/tettsteder.json');
+    const response = await fetch('public/tettsteder.json');
     if (!response.ok) throw new Error('Kunne ikke hente JSON');
     steder = await response.json();
     fyllDatalist(steder);

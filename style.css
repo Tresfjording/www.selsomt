@@ -8,6 +8,10 @@ body {
   padding: 2rem;
 }
 
+.dumy {
+  height: 100px;
+}   
+
 /* Tittel */
 h1 {
   text-align: center;
@@ -66,7 +70,7 @@ button:hover {
   color: #004080;
 }
 
-/* Fargekoding av prisnivå */
+/* Fargekoding av prisnivï¿½ */
 .low {
   color: green;
 }
