@@ -1,14 +1,14 @@
 /* Generell layout */
 body {
   text-align: center;
-  max-width: 800px;
+  max-width: 350px;
   margin: 0 auto;
   text-align: center;  
   font-family: 'Segoe UI', Arial, sans-serif;
   background: linear-gradient(135deg, #f0f4f8, #d9e6f2);
   color: #333;
   margin: 0;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .dumy {
@@ -20,6 +20,20 @@ h1 {
   text-align: center;
   color: #004080;
   margin-bottom: 2rem;
+}
+
+#resultatBoks p {
+  display: flex;
+  flex-direction: column;
+  margin: 0.8rem 0;
+  font-size: 1rem;
+}
+#resultatBoks p strong {
+  font-weight: 600;
+  color: #004080;
+}
+#resultatBoks p span {
+  margin-top: 0.2rem;
 }
 
 /* Input og knapp */
@@ -83,7 +97,7 @@ button:hover {
 }
 
 /* Resultatboks */
-#resultat {
+#resultatBoks {
   margin-top: 2rem;
   padding: 1.5rem;
   border-radius: 10px;
@@ -91,9 +105,11 @@ button:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-#resultat p {
+#resultatBoks p {
   margin: 0.5rem 0;
   font-size: 1.1rem;
+  line-height: 1.4;
+
 }
 
 /* Highlight tekst */
