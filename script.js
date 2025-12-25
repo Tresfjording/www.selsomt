@@ -202,4 +202,4 @@ async function hentSpotpris(sone) {
 };
 
 document.addEventListener("DOMContentLoaded", initApp)};
-}
+};
