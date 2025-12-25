@@ -5,12 +5,12 @@ let steder = [];
 // -----------------------------
 async function hentStederdata() {
   try {
-    const response = await fetch('public/tettsteder.json');
+    const response = await fetch('/tettsteder.json');
     if (!response.ok) throw new Error('Kunne ikke hente JSON');
     steder = await response.json();
     fyllDatalist(steder);
   } catch (error) {
-    console.error('Feil ved henting av stededata:', error);
+    console.error('Feil ved henting av stederdata:', error);
   }
 }
 
@@ -63,7 +63,7 @@ function oppdaterInfo(entry) {
  document.getElementById('statusDisplay').textContent =
  `☑ Fant data for ${entry.tettsted}`;
 
-  document.getElementById("valgtKommuneDisplay").textContent = entry.kommune ?? 'Ukjent';
+  document.getElementById("valgtKommuneDisplay").textContent = entry.tettsted ?? 'Ukjent';
   document.getElementById('k_nrDisplay').textContent = entry.k_nr ?? 'Ukjent';
   document.getElementById('tettstedDisplay').textContent = entry.tettsted ?? 'Ukjent';
   document.getElementById('fylkeDisplay').textContent = entry.fylke ?? 'Ukjent';
@@ -77,29 +77,6 @@ function oppdaterInfo(entry) {
   document.getElementById('f_slagordDisplay').textContent = entry.f_slagord ?? 'Ingen slagord regitrert';
   
 }
-
-// -----------------------------
-// HENT SPOTPRIS
-// -----------------------------
-//async function hentSpotpris(sone) {
-//  const dato = new Date();
-//  const year = dato.getFullYear();
-//  const month = String(dato.getMonth() + 1).padStart(2, '0');
-//  const day = String(dato.getDate()).padStart(2, '0');
-
-//  const url = `https://www.hvakosterstrommen.no/api/v1/prices/${year}/${month}-${day}_${sone}.json`;
-
-//  try {
-//    const response = await fetch(url);
-//    if (!response.ok) throw new Error("Kunne ikke hente spotpris");
-//    const data = await response.json();
-//    const priser = data.map(p => p.NOK_per_kWh);
-//    const gjennomsnitt = (priser.reduce((a, b) => a + b, 0) / priser.length) * 100;
-//    return gjennomsnitt.toFixed(2);
-//  } catch (error) {
-//    console.error("Feil ved henting av spotpris:", error);
-//    return null;
-//  }
 
 
 // -----------------------------
