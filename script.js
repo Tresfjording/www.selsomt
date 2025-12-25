@@ -148,6 +148,8 @@ async function visRandomFakta() {
   await hentStederdata();
   hentSE3();
   hentDK2();
+  console.log("Antall steder:", steder.length);
+console.log("Første tettsted:", steder[0]?.tettsted);
 document.addEventListener('DOMContentLoaded', () => {
   initApp();
 });
