@@ -174,3 +174,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('visButton').addEventListener('click', visTettsted);
 });
+async function hentSpotpris(sone) {
+    const url = `https://www.forbrukerradet.no/strompris/api/spotpris?omrade=${sone}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    // Forbrukerrådet returnerer en liste, vi tar første element
+    const pris = data[0]?.pris;
+
+    return pris; // Pris inkl. MVA
+}
+
+hentSpotpris(entry.sone).then(pris => {
+    if (pris) {
+        document.getElementById("prisDisplay").textContent =
+            `${pris.toFixed(5)} kr/kWh`;
+    } else {
+        document.getElementById("prisDisplay").textContent = "Ukjent";
+    }
+});
