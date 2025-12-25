@@ -149,11 +149,21 @@ async function visRandomFakta() {
   hentSE3();
   hentDK2();
 document.addEventListener('DOMContentLoaded', async () => {
-  document.getElementById('søkInput').addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') visTettsted();
-  });
+  try {
+    await hentStederdata(); // må være inne i async-funksjon
+    hentSE3();
+    hentDK2();
 
-  document.getElementById('visButton').addEventListener('click', visTettsted);
+    document.getElementById('søkInput').addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') visTettsted();
+    });
+
+    document.getElementById('visButton').addEventListener('click', visTettsted);
+
+    console.log("Init fullført");
+  } catch (error) {
+    console.error("Feil under init:", error);
+  }
 });
 console.log("URL som brukes:", url);
 async function hentSpotpris(sone) {
