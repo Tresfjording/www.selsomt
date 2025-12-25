@@ -44,10 +44,10 @@ async function visTettsted() {
   oppdaterInfo(entry);
 
   // hent spotpris
-//  const pris = await hentSpotpris(entry.sone);
-//  document.getElementById('prisDisplay').textContent =
-//    pris ? `${pris} øre/kWh ekskl. MVA` : 'Ingen pris tilgjengelig';
-//}
+  const pris = await hentSpotpris(entry.sone);
+  document.getElementById('prisDisplay').textContent =
+    pris ? `${pris} øre/kWh ekskl. MVA` : 'Ingen pris tilgjengelig';
+}
 
 // -----------------------------
 // VIS FEILMELDING
@@ -64,7 +64,6 @@ function oppdaterInfo(entry) {
  `☑ Fant data for ${entry.tettsted}`;
 
   document.getElementById("valgtKommuneDisplay").textContent = entry.kommune ?? 'Ukjent';
-  document.getElementById('prisDisplay').textContent = prisDisplay ?? 'Ukjent';
   document.getElementById('k_nrDisplay').textContent = entry.k_nr ?? 'Ukjent';
   document.getElementById('tettstedDisplay').textContent = entry.tettsted ?? 'Ukjent';
   document.getElementById('fylkeDisplay').textContent = entry.fylke ?? 'Ukjent';
