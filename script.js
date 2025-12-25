@@ -9,8 +9,9 @@ async function hentStederdata() {
     if (!response.ok) throw new Error('Kunne ikke hente JSON');
     steder = await response.json();
     fyllDatalist(steder);
-  } catch (error) {
     console.error('Feil ved henting av stederdata:', error);
+  } catch (error) {
+    
   window.steder = data; // gjør 'steder' tilgjengelig i konsollen}
 }
 
