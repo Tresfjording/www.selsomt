@@ -36,7 +36,7 @@ function fyllDatalist(data) {
 async function visTettsted() {
   const søk = document.getElementById('søkInput').value.trim().toLowerCase();
   const entry = steder.find(e => e.tettsted.toLowerCase() === søk);
-
+console.log("✅ visTettsted() ble kalt");
   if (!entry) {
     visFeilmelding('⚠ Fant ikke kommunenavn');
     return;
@@ -165,15 +165,15 @@ async function initApp() {
 }
 
 
-//console.log("URL som brukes:", url);
-//async function hentSpotpris(sone) {
-//    const url = `https://www.forbrukerradet.no/strompris/api/spotpris?omrade=${sone}`;
-//    const response = await fetch(url);
-//    const data = await response.json();
-//
-//    // Forbrukerrådet returnerer en liste, vi tar første element
-//    const pris = data[0]?.pris;
-//
-//    return pris; // Pris inkl. MVA
-//};
+
+async function hentSpotpris(sone) {
+console.log("URL som brukes:", url);
+  const url = `https://www.forbrukerradet.no/strompris/api/spotpris?omrade=${sone}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    // Forbrukerrådet returnerer en liste, vi tar første element
+    const pris = data[0]?.pris;
+
+    return pris; // Pris inkl. MVA
+};
 
