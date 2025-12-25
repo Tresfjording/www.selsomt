@@ -45,7 +45,7 @@ async function visTettsted() {
   oppdaterInfo(entry);
 
   // hent spotpris
-  console.log("URL som brukes:", url);
+
   const pris = await hentSpotpris(entry.sone);
   document.getElementById('prisDisplay').textContent =
     pris ? `${(pris * 100).toFixed(2)} øre/kWh inkl. MVA` : 'Ingen pris tilgjengelig';
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('visButton').addEventListener('click', visTettsted);
 });
-
+console.log("URL som brukes:", url);
 async function hentSpotpris(sone) {
     const url = `https://www.forbrukerradet.no/strompris/api/spotpris?omrade=${sone}`;
     const response = await fetch(url);
