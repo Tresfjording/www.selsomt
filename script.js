@@ -64,6 +64,7 @@ function oppdaterInfo(entry) {
  `☑ Fant data for ${entry.tettsted}`;
 
  document.getElementById("valgtKommuneDisplay").textContent = entry.kommune;
+  document.getElementById('prisDisplay').textContent = entry.k_nr ?? 'Ukjent';
   document.getElementById('k_nrDisplay').textContent = entry.k_nr ?? 'Ukjent';
   document.getElementById('tettstedDisplay').textContent = entry.tettsted ?? 'Ukjent';
   document.getElementById('fylkeDisplay').textContent = entry.fylke ?? 'Ukjent';
