@@ -53,29 +53,25 @@ console.log("Sone som sendes til API:", entry.sone);
     pris ? `${(pris * 100).toFixed(2)} øre/kWh inkl. MVA` : 'Ingen pris tilgjengelig';
 }
 async function hentSpotpris(sone) {
-  // Midlertidig: bruk DK2 uansett sone
-  const url = `https://api.energidataservice.dk/dataset/Elspotprices?filter={"PriceArea":"DK2"}&limit=1&sort=HourUTC desc`;
-  console.log("Henter spotpris fra DK2:", url);
+  const url = `https://api.energidataservice.dk/dataset/Elspotprices?filter={"PriceArea":"${sone}"}&limit=1&sort=HourUTC desc`;
+  console.log("Henter norsk spotpris:", url);
 
   try {
     const response = await fetch(url);
     const data = await response.json();
 
     if (!data.records || data.records.length === 0) {
-      console.warn("⚠ Ingen spotpris-data mottatt fra DK2");
+      console.warn("⚠ Ingen data for norsk prisområde:", sone);
       return null;
     }
 
     const eurMWh = data.records[0].SpotPriceEUR;
+    const nokPerKWh = eurMWh * 11.5 / 1000; // NOK/kWh
 
-    // Omregning: EUR/MWh → NOK/kWh
-    const nokPerKWh = eurMWh * 11.5 / 1000;
-
-    console.log("DK2-pris (NOK/kWh):", nokPerKWh);
     return nokPerKWh;
 
   } catch (error) {
-    console.error("🚨 Feil ved henting av DK2-spotpris:", error);
+    console.error("🚨 Feil ved henting av norsk spotpris:", error);
     return null;
   }
 }
