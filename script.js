@@ -201,3 +201,14 @@ async function hentSpotpris(sone) {
 };
 
 document.addEventListener("DOMContentLoaded", initApp);
+
+function validerSoner(data) {
+  const gyldige = ["NO1", "NO2", "NO3", "NO4", "NO5"];
+  const feil = data.filter(e => !gyldige.includes(e.sone));
+
+  if (feil.length === 0) {
+    console.log("✅ Alle tettsteder har gyldig sone (NO1–NO5)");
+  } else {
+    console.warn("⚠ Fant ugyldige soner:", feil);
+  }
+}
