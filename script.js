@@ -41,7 +41,9 @@ async function visTettsted() {
     visFeilmelding('⚠ Fant ikke kommunenavn');
     return;
   }
-console.log("Sone som sendes til API:", entry.sone);
+
+  console.log("Sone som sendes til API:", entry.sone);
+
   oppdaterInfo(entry);
 
   // hent spotpris
