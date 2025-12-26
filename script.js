@@ -177,7 +177,7 @@ function settTekst(id, verdi) {
 function oppdaterFelter(entry, pris) {
   settTekst("tettstedDisplay", entry?.tettsted);
   settTekst("kNrDisplay", entry?.k_nr);
-  settTekst("fylkeDisplay", entry?.fylke);
+  settTekst("fylkeDisplay", entry?.fylke); 
   settTekst("soneDisplay", entry?.sone);
   settTekst("antallDisplay", entry?.antall);
   settTekst("arealDisplay", entry?.areal);

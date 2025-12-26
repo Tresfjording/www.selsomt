@@ -29,6 +29,24 @@ body {
   height: 600px;
 }
 
+.main-layout {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.info-card {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background: #f9f9f9;
+}
+
+#map {
+  flex: 2;
+  /*height: 100vh;*/
+}
+
 h1, h2 {
   margin: 0;
   padding: 0;
