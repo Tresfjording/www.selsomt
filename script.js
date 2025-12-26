@@ -88,13 +88,14 @@ async function visTettsted(map) {
   if (!entry) {
     settStatus(`Fant ikke tettstedet "${input}".`, false);
     oppdaterFelter(null, null);
+      // Hent spotpris
+  const pris = await hentSpotpris(entry.sone);
     return;
   }
 
   console.log("Fant tettsted:", entry);
 
-  // Hent spotpris
-  const pris = await hentSpotpris(entry.sone);
+
 
   if (pris == null) {
     settStatus(`Fant ${entry.tettsted}, men ingen strømpris for sone ${entry.sone}.`, false);
