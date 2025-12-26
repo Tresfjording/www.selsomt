@@ -186,6 +186,7 @@ function oppdaterFelter(entry, pris) {
   settTekst("sprakDisplay", entry?.språk);
   settTekst("kSlagordDisplay", entry?.k_slagord);
   settTekst("fSlagordDisplay", entry?.f_slagord);
+  settTekst("statusDisplay", entry?.språk);
 
   settTekst(
     "prisDisplay",
