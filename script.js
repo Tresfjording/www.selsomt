@@ -173,6 +173,30 @@ function visKart(entry) {
     .openPopup();
 }
 
+ // Opprett kartet
+    const map = L.map('map').setView([65.0, 15.0], 5); // Midt i Norge
+
+    // Legg til bakgrunnskart
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Last JSON og legg til markører
+    fetch("tettsteder_3.json")
+      .then(r => r.json()) 
+      .then(data => {
+        data.forEach(item => {
+          if (item.lat_decimal && item.lon_decimal) {
+            L.marker([item.lat_decimal, item.lon_decimal])
+              .addTo(map)
+              .bindPopup(`
+                <strong>${item.tettsted}</strong><br>
+                ${item.fylke}<br>
+                ${item.k_slagord || ""}
+              `);
+          }
+        });
+      });
 
 function visSoktTettsted() {
   const query = document.getElementById("searchInput").value.trim().toLowerCase();
