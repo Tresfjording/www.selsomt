@@ -1,19 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="nb">
 <head>
-  <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <title>selsomt.no – tettsteder og strømpris</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
-<script
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-></script>
-<style>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
     html, body {
       height: 100%;
       margin: 0;
@@ -23,75 +19,48 @@
       width: 100%;
     }
   </style>
-
 </head>
+
 <body>
+
   <div class="container">
     <h1>Strømpris</h1>
-   </div>
+  </div>
 
   <div class="search-box">
-  <input id="sokInput" type="text" placeholder="Søk tettsted...">
-  <button id="visInfoBtn">Vis info</button>
-</div>
-
+    <input id="searchInput" type="text" placeholder="Søk tettsted...">
+    <button onclick="visSoktTettsted()">Søk</button>
+  </div>
 
   <section id="tettstedInfo" class="info-card">
-  <h2 id="tettstedDisplay">–</h2>
+    <h2 id="tettstedDisplay">–</h2>
 
-  <div class="info-row"><span>Kommune nr:</span> <strong id="kNrDisplay">–</strong></div>
-  <div class="info-row"><span>Fylke:</span> <strong id="fylkeDisplay">–</strong></div>
-  <div class="info-row"><span>Prisområde:</span> <strong id="soneDisplay">–</strong></div>
-  <div class="info-row"><span>Innbyggere:</span> <strong id="antallDisplay">–</strong></div>
-  <div class="info-row"><span>Areal (km²):</span> <strong id="arealDisplay">–</strong></div>
-  <div class="info-row"><span>Sysselsatte:</span> <strong id="sysselsatteDisplay">–</strong></div>
-  <div class="info-row"><span>Tilskudd:</span> <strong id="tilskuddDisplay">–</strong></div>
-  <div class="info-row"><span>Språk:</span> <strong id="sprakDisplay">–</strong></div>
-  <div class="info-row"><span>Kommuneslagord:</span> <strong id="kSlagordDisplay">–</strong></div>
-  <div class="info-row"><span>Fylkesslagord:</span> <strong id="fSlagordDisplay">–</strong></div>
+    <div class="info-row"><span>Kommune nr:</span> <strong id="kNrDisplay">–</strong></div>
+    <div class="info-row"><span>Fylke:</span> <strong id="fylkeDisplay">–</strong></div>
+    <div class="info-row"><span>Prisområde:</span> <strong id="soneDisplay">–</strong></div>
+    <div class="info-row"><span>Innbyggere:</span> <strong id="antallDisplay">–</strong></div>
+    <div class="info-row"><span>Areal (km²):</span> <strong id="arealDisplay">–</strong></div>
+    <div class="info-row"><span>Sysselsatte:</span> <strong id="sysselsatteDisplay">–</strong></div>
+    <div class="info-row"><span>Tilskudd:</span> <strong id="tilskuddDisplay">–</strong></div>
+    <div class="info-row"><span>Språk:</span> <strong id="sprakDisplay">–</strong></div>
+    <div class="info-row"><span>Kommuneslagord:</span> <strong id="kSlagordDisplay">–</strong></div>
+    <div class="info-row"><span>Fylkesslagord:</span> <strong id="fSlagordDisplay">–</strong></div>
 
-<div id="kartContainer"></div>
+    <div id="kartContainer"></div>
 
-  <div class="pris-row">
-    <span>Strømpris nå:</span>
-    <strong id="prisDisplay">–</strong>
-  </div>
-</section>
-<div id="status" class="status">–</div>
+    <div class="pris-row">
+      <span>Strømpris nå:</span>
+      <strong id="prisDisplay">–</strong>
+    </div>
+  </section>
+
+  <div id="status" class="status">–</div>
+
+  <!-- Kartet skal stå HER -->
+  <div id="map"></div>
+
+  <!-- Din egen JS-fil -->
   <script src="script.js"></script>
-  
-  <input type="text" id="searchInput" placeholder="Søk etter tettsted">
-<button onclick="visSoktTettsted()">Søk</button>
-
-
-<script>
-<div id="map"></div>
- // Opprett kartet
-    const map = L.map('map').setView([65.0, 15.0], 5); // Midt i Norge
-
-    // Legg til bakgrunnskart
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Last JSON og legg til markører
-    fetch("tettsteder_3.json")
-      .then(r => r.json()) 
-      .then(data => {
-        data.forEach(item => {
-          if (item.lat_decimal && item.lon_decimal) {
-            L.marker([item.lat_decimal, item.lon_decimal])
-              .addTo(map)
-              .bindPopup(`
-                <strong>${item.tettsted}</strong><br>
-                ${item.fylke}<br>
-                ${item.k_slagord || ""}
-              `);
-          }
-        });
-      });
-</script>
-
 
 </body>
 </html>
