@@ -41,7 +41,31 @@ function normaliserTettstedNavn(str) {
   return str.trim().toLowerCase();
 }
 
+/ === HOVEDFUNKSJON – vis info om tettsted ===
+async function visTettsted() {
+  console.log("✅ visTettsted() ble kalt");
+  const input = document.getElementById('sokInput').value;
+  const søk = normaliserTettstedNavn(input);
 
+  if (!søk) {
+    settStatus("Skriv inn et tettsted først.", false);
+    return;
+  }
+
+  if (!steder || steder.length === 0) {
+    settStatus("Tettstedsdata ikke lastet ennå.", false);
+    return;
+  }
+
+  const entry = steder.find(e => normaliserTettstedNavn(e.tettsted) === søk);
+
+  if (!entry) {
+    settStatus(`Fant ikke tettstedet "${input}".`, false);
+    oppdaterFelter(null, null);
+    return;
+  }
+
+  console.log("✅ Fant entry:", entry);
 
 
 
