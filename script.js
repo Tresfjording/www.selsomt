@@ -118,10 +118,10 @@ async function hentSpotpris(sone) {
     return null;
   }
 }
-
 function settTekst(id, verdi) {
   const el = document.getElementById(id);
   if (!el) return;
+
   if (verdi == null || verdi === "") {
     el.textContent = "";
     el.classList.add("mangler");
@@ -129,13 +129,10 @@ function settTekst(id, verdi) {
     el.textContent = verdi;
     el.classList.remove("mangler");
   }
- 
-
 }
-
 function oppdaterFelter(entry, pris) {
-  settTekst('tettstedDisplay', entry?.tettsted);
-  settTekst('kNrDisplay', entry?.k_nr);
+//  settTekst('tettstedDisplay', entry?.tettsted);
+//  settTekst('kNrDisplay', entry?.k_nr);
   settTekst('fylkeDisplay', entry?.fylke);
   settTekst('soneDisplay', entry?.sone);
   settTekst('antallDisplay', entry?.antall);
