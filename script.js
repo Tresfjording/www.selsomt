@@ -87,38 +87,7 @@ async function visTettsted() {
   oppdaterFelter(entry, pris);
 }
 
-// === OPPDATER UI ===
-function oppdaterFelter(entry, pris) {
-  const tettstedEl = document.getElementById('tettstedDisplay');
-  const prisEl = document.getElementById('prisDisplay');
-  const kNrEl = document.getElementById('kNrDisplay');
-  const fylkeEl = document.getElementById('fylkeDisplay');
-  const soneEl = document.getElementById('soneDisplay');
-  const antallEl = document.getElementById('antallDisplay');
 
-  if (!entry) {
-    tettstedEl.textContent = '–';
-    prisEl.textContent = '–';
-    kNrEl.textContent = '–';
-    fylkeEl.textContent = '–';
-    soneEl.textContent = '–';
-    antallEl.textContent = '–';
-    return;
-  }
-
-  tettstedEl.textContent = entry.tettsted ?? '–';
-  kNrEl.textContent = entry.k_nr ?? '–';
-  fylkeEl.textContent = entry.fylke ?? '–';
-  soneEl.textContent = entry.sone ?? '–';
-  antallEl.textContent = entry.antall ?? '–';
-
-  if (pris == null) {
-    prisEl.textContent = 'Ingen pris tilgjengelig';
-  } else {
-    const øre = (pris * 100).toFixed(2);
-    prisEl.textContent = `${øre} øre/kWh (inkl. MVA, ca.)`;
-  }
-}
 
 
 // === HENT SPOTPRIS FRA hvakosterstrommen.no ===
