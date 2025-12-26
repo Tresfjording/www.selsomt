@@ -129,18 +129,27 @@ function settTekst(id, verdi) {
     el.textContent = verdi;
     el.classList.remove("mangler");
   }
+ 
+
+}
+
+function oppdaterFelter(entry, pris) {
   settTekst('tettstedDisplay', entry?.tettsted);
-settTekst('kNrDisplay', entry?.k_nr);
-settTekst('fylkeDisplay', entry?.fylke);
-settTekst('soneDisplay', entry?.sone);
-settTekst('antallDisplay', entry?.antall);
-settTekst('arealDisplay', entry?.areal);
-settTekst('sysselsatteDisplay', entry?.sysselsatte);
-settTekst('tilskuddDisplay', entry?.tilskudd);
-settTekst('sprakDisplay', entry?.språk);
-settTekst('kSlagordDisplay', entry?.k_slagord);
-settTekst('fSlagordDisplay', entry?.f_slagord);
+  settTekst('kNrDisplay', entry?.k_nr);
+  settTekst('fylkeDisplay', entry?.fylke);
+  settTekst('soneDisplay', entry?.sone);
+  settTekst('antallDisplay', entry?.antall);
+  settTekst('arealDisplay', entry?.areal);
+  settTekst('sysselsatteDisplay', entry?.sysselsatte);
+  settTekst('tilskuddDisplay', entry?.tilskudd);
+  settTekst('sprakDisplay', entry?.språk);
+  settTekst('kSlagordDisplay', entry?.k_slagord);
+  settTekst('fSlagordDisplay', entry?.f_slagord);
 
-settTekst('prisDisplay', pris == null ? "Pris ikke tilgjengelig (helligdag?)" : `${(pris * 100).toFixed(2)} øre/kWh (inkl. MVA, ca.)`);
-
+  settTekst(
+    'prisDisplay',
+    pris == null
+      ? "Pris ikke tilgjengelig (helligdag?)"
+      : `${(pris * 100).toFixed(2)} øre/kWh (inkl. MVA, ca.)`
+  );
 }
