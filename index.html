@@ -13,6 +13,16 @@
 <script
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 ></script>
+<style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
 
 </head>
 <body>
@@ -50,5 +60,36 @@
 <div id="status" class="status">–</div>
   <script src="script.js"></script>
   
+<div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Opprett kartet
+    const map = L.map('map').setView([65.0, 15.0], 5); // Midt i Norge
+
+    // Legg til bakgrunnskart
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Last JSON og legg til markører
+    fetch("tettsteder_3.json")
+      .then(r => r.json())
+      .then(data => {
+        data.forEach(item => {
+          if (item.lat_decimal && item.lon_decimal) {
+            L.marker([item.lat_decimal, item.lon_decimal])
+              .addTo(map)
+              .bindPopup(`
+                <strong>${item.tettsted}</strong><br>
+                ${item.fylke}<br>
+                ${item.k_slagord || ""}
+              `);
+          }
+        });
+      });
+  </script>
+
+
 </body>
 </html>
