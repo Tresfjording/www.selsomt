@@ -26,11 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnAntall').addEventListener('click', () => antallPerSone(steder));
   document.getElementById('btnTestPris').addEventListener('click', testAlleSoner);
   document.getElementById('arealDisplay').textContent = entry.areal ?? '–';
-document.getElementById('sysselsatteDisplay').textContent = entry.sysselsatte ?? '–';
-document.getElementById('tilskuddDisplay').textContent = entry.tilskudd ?? '–';
-document.getElementById('sprakDisplay').textContent = entry.språk ?? '–';
-document.getElementById('kSlagordDisplay').textContent = entry.k_slagord ?? '–';
-document.getElementById('fSlagordDisplay').textContent = entry.f_slagord ?? '–';
+  document.getElementById('sysselsatteDisplay').textContent = entry.sysselsatte ?? '–';
+  document.getElementById('tilskuddDisplay').textContent = entry.tilskudd ?? '–';
+  document.getElementById('sprakDisplay').textContent = entry.språk ?? '–';
+  document.getElementById('kSlagordDisplay').textContent = entry.k_slagord ?? '–';
+  document.getElementById('fSlagordDisplay').textContent = entry.f_slagord ?? '–';
 
   console.log("✅ Init fullført");
 });
