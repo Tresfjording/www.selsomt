@@ -4,23 +4,14 @@
   <meta charset="UTF-8">
   <title>selsomt.no – tettsteder og strømpris</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
-    #map {
-      height: 100vh;
-      width: 100%;
-    }
+    html, body { margin: 0; height: 100%; }
+    #map { height: 100vh; width: 100%; }
   </style>
 </head>
-
 <body>
 
   <div class="container">
@@ -28,13 +19,12 @@
   </div>
 
   <div class="search-box">
-    <input id="searchInput" type="text" placeholder="Søk tettsted...">
-    <button onclick="visSoktTettsted()">Søk</button>
+    <input id="sokInput" type="text" placeholder="Søk tettsted...">
+    <button id="visInfoBtn">Vis info</button>
   </div>
 
   <section id="tettstedInfo" class="info-card">
     <h2 id="tettstedDisplay">–</h2>
-
     <div class="info-row"><span>Kommune nr:</span> <strong id="kNrDisplay">–</strong></div>
     <div class="info-row"><span>Fylke:</span> <strong id="fylkeDisplay">–</strong></div>
     <div class="info-row"><span>Prisområde:</span> <strong id="soneDisplay">–</strong></div>
@@ -45,21 +35,10 @@
     <div class="info-row"><span>Språk:</span> <strong id="sprakDisplay">–</strong></div>
     <div class="info-row"><span>Kommuneslagord:</span> <strong id="kSlagordDisplay">–</strong></div>
     <div class="info-row"><span>Fylkesslagord:</span> <strong id="fSlagordDisplay">–</strong></div>
-
-    <div id="kartContainer"></div>
-
-    <div class="pris-row">
-      <span>Strømpris nå:</span>
-      <strong id="prisDisplay">–</strong>
-    </div>
+    <div class="pris-row"><span>Strømpris nå:</span> <strong id="prisDisplay">–</strong></div>
   </section>
 
-  <div id="status" class="status">–</div>
-
-  <!-- Kartet skal stå HER -->
   <div id="map"></div>
-
-  <!-- Din egen JS-fil -->
   <script src="script.js"></script>
 
 </body>
