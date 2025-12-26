@@ -184,6 +184,9 @@ function visSoktTettsted() {
         item.tettsted.toLowerCase() === query
       );
 
+      console.log("Søkte etter:", query);
+      console.log("Fant entry:", entry);
+
       if (!entry) {
         alert("Fant ikke tettstedet");
         return;

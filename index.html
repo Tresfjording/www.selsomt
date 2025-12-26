@@ -77,7 +77,7 @@
 
     // Last JSON og legg til markører
     fetch("tettsteder_3.json")
-      .then(r => r.json())
+      .then(r => r.json()) 
       .then(data => {
         data.forEach(item => {
           if (item.lat_decimal && item.lon_decimal) {
