@@ -31,13 +31,6 @@ function settStatus(tekst, ok = true) {
 }
 
 // Oppdater infoboks
-function oppdaterFelter(entry, pris) {
-  const tettstedEl = document.getElementById("tettstedDisplay");
-  const prisEl = document.getElementById("prisDisplay");
-  const kNrEl = document.getElementById("kNrDisplay");
-  const fylkeEl = document.getElementById("fylkeDisplay");
-  const soneEl = document.getElementById("soneDisplay");
-}
  function oppdaterFelter(entry, pris) {
     if (!entry) {
         if (tettstedEl) tettstedEl.textContent = "";
