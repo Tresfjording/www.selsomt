@@ -210,12 +210,7 @@ async function visTettsted(map) {
         `Fant ${entry.tettsted}, men mangler prisområde (sone).`,
         false
       );
-      oppdaterFelter(entry, null);
-      visPåKart(map, {
-        lat: entry.lat_decimal,
-        lon: entry.lon_decimal,
-        navn: entry.tettsted
-      });
+
 
       if (
         typeof entry.lat_decimal === "number" &&
@@ -240,14 +235,6 @@ async function visTettsted(map) {
       );
     }
 
-    oppdaterFelter(entry, pris);
-    visPåKart(map, {
-      lat: entry.lat_decimal,
-      lon: entry.lon_decimal,
-      navn: entry.tettsted,
-      fylke: entry.fylke,
-      k_slagord: entry.k_slagord
-    });
 
     if (
       typeof entry.lat_decimal === "number" &&
@@ -267,8 +254,7 @@ async function visTettsted(map) {
       `Fant verken lokalt tettsted eller stedsnavn i Kartverket for "${input}".`,
       false
     );
-    oppdaterFelter(null, null);
-    return;
+
   }
 
   console.log("Fant stedsnavn via Kartverket:", ssr);
@@ -331,19 +317,9 @@ async function visTettsted(map) {
     sone: sone || "–"
   }
 
-  oppdaterFelter(entryFraSSR, pris);
 
-  if (typeof lat === "number" && typeof lon === "number") {
-    visPåKart(map, {
-      lat,
-      lon,
-      navn: ssr.navn,
-      fylke: ssr.fylke,
-      k_slagord: ""
-    });
-    hentNowcast(lat, lon);
-  }
-}
+
+
 
 // --------------------------
 // Init
