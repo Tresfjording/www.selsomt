@@ -268,7 +268,7 @@ function visPåKart(map, sted) {
       ${sted.k_slagord || ""}
     `
     )
-    .openPopup();
+    .openPopup(); 
 
   // Zoom inn
   map.setView([sted.lat, sted.lon], 4, {
