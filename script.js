@@ -91,10 +91,10 @@ async function lastTettsteder() {
       if (e.k_nr && e.sone) {
         kommuneTilSone[e.k_nr] = e.sone;
       }
-    }
+    
 
     console.log("Lastet tettsteder:", steder.length);
-  } catch (err) {
+   catch (err) {
     console.error("Feil ved lasting av tettsteder:", err);
     settStatus("Klarte ikke laste lokal tettstedsliste.", false);
   }
