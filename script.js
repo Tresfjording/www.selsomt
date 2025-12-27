@@ -117,7 +117,7 @@ async function hentSpotpris(sone) {
     // Flere API-varianter finnes; her antar vi data[0].NOK_per_kWh
     const first = Array.isArray(data) ? data[0] : null;
     if (!first || typeof first.NOK_per_kWh !== "number") return null;
-
+async function hentSted
     // konverter kr/kWh → øre/kWh
     return first.NOK_per_kWh * 100;
   } catch (err) {
